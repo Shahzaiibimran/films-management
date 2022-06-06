@@ -1,0 +1,36 @@
+{
+  "name": "films_management",
+  "version": "1.0.0",
+  "description": "Films Management",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Shahzaiibimran/films-management.git"
+  },
+  "keywords": [
+    "Films management"
+  ],
+  "author": "Shahzaib Imran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shahzaiibimran/films-management.git/issues"
+  },
+  "homepage": "https://github.com/Shahzaiibimran/films-management.git#readme",
+  "dependencies": {
+    "@knuckleswtf/scribe-express": "^2.0.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "scribe": "^0.0.9"
+  }
+}

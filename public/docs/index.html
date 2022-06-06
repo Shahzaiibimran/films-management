@@ -1,0 +1,1997 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Films Management Documentation</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="css/theme-default.print.css" media="print">
+    <script src="js/theme-default-2.0.2.js"></script>
+
+    <link rel="stylesheet"
+          href="//unpkg.com/@highlightjs/cdn-assets@10.7.2/styles/obsidian.min.css">
+    <script src="//unpkg.com/@highlightjs/cdn-assets@10.7.2/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    
+</head>
+
+<body data-languages="[&#34;bash&#34;,&#34;javascript&#34;]">
+<a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="navbar-image" />
+      </span>
+</a>
+<div class="tocify-wrapper">
+    
+    
+        <div class="lang-selector">
+            
+                <a href="#" data-language-name="bash">bash</a>
+            
+                <a href="#" data-language-name="javascript">javascript</a>
+            
+        </div>
+    
+    <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+    <ul class="search-results"></ul>
+
+    <ul id="toc">
+    </ul>
+
+    
+        <ul class="toc-footer" id="toc-footer">
+            
+                <li><a href="collection.json">View Postman collection</a></li>
+            
+                <li><a href="http://github.com/knuckleswtf/scribe-js">Documentation powered by Scribe ✍</a></li>
+            
+        </ul>
+    
+        <ul class="toc-footer" id="last-updated">
+            <li>Last updated: June 7, 2022</li>
+        </ul>
+</div>
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1 id="introduction">Introduction</h1>
+<p>Some of the most important points regarding the module are mentioned below! Please read it carefully.</p>
+<blockquote>
+  <p>Base URL:</p>
+</blockquote>
+<pre><code class="yaml language-yaml">http://localhost:3000
+</code></pre>
+
+        <h1 id="authenticatingrequests">Authenticating requests</h1>
+<p>Authenticate requests to this API's endpoints by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
+<p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
+<p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
+
+        
+    <h1 id="Auth">Auth</h1>
+    <p>
+        
+    </p>
+
+    
+        
+<h2 id="Auth-POST-auth-sign-up">Sign up API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-POST-auth-sign-up">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:3000/auth/sign-up"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --data '{
+    "first_name": "Shahzaib",
+    "last_name": "Imran",
+    "email": "shahzaiibimran@gmail.com",
+    "password": "123456789",
+    "confirm_password": "123456789"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/auth/sign-up"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+const body = {
+    "first_name": "Shahzaib",
+    "last_name": "Imran",
+    "email": "shahzaiibimran@gmail.com",
+    "password": "123456789",
+    "confirm_password": "123456789"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-auth-sign-up">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "firstName": "Shahzaib",
+        "lastName": "Imran",
+        "email": "shahzaiibimran@gmail.com"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {
+        "firstName": "Shahzaib",
+        "lastName": "Imran",
+        "email": "shahzaiibimran@gmail.com"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "first_name": "The first name field is required."
+        }
+    ],
+    "data": {
+        "firstName": "Shahzaib",
+        "lastName": "Imran",
+        "email": "shahzaiibimran@gmail.com"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {
+        "firstName": "Shahzaib",
+        "lastName": "Imran",
+        "email": "shahzaiibimran@gmail.com"
+    }
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-POST-auth-sign-up" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-auth-sign-up"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-auth-sign-up"></code></pre>
+</span>
+<span id="execution-error-POST-auth-sign-up" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-auth-sign-up"></code></pre>
+</span>
+
+<form id="form-POST-auth-sign-up"
+      data-method="POST"
+      data-path="/auth/sign-up"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-auth-sign-up', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/auth/sign-up</code></b>
+</p>
+
+
+<p>
+    <label id="auth-POST-auth-sign-up" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="POST-auth-sign-up"
+                                                               data-component="header"></label>
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>first_name</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="first_name"
+               data-endpoint="POST-auth-sign-up"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 3 max: 20</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="last_name"
+               data-endpoint="POST-auth-sign-up"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 3 max: 20</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="email"
+               data-endpoint="POST-auth-sign-up"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 3 max: 30</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="password"
+               data-endpoint="POST-auth-sign-up"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 7 max: 40</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>confirm_password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="confirm_password"
+               data-endpoint="POST-auth-sign-up"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 7 max: 40</p>
+            </p>
+        
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Auth-POST-auth-sign-in">Sign in API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-POST-auth-sign-in">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:3000/auth/sign-in"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --data '{
+    "email": "shahzaiibimran@gmail.com",
+    "password": "123456789"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/auth/sign-in"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+const body = {
+    "email": "shahzaiibimran@gmail.com",
+    "password": "123456789"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-auth-sign-in">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "response": true,
+        "status_code": 200,
+        "message": "Success",
+        "error_msgs": [],
+        "data": {
+            "id": "629e0c147317166748842736",
+            "first_name": "Shahzaib",
+            "last_name": "Imran",
+            "email": "shahzaiibimran@gmail.com",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI5ZTBjMTQ3MzE3MTY2NzQ4ODQyNzM2IiwiZmlyc3RfbmFtZSI6IlNoYWh6YWliIiwibGFzdF9uYW1lIjoiSW1yYW4iLCJlbWFpbCI6InNoYWh6YWlpYmltcmFuQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTQ1MjY4NjQsImV4cCI6MTY1NDYxMzI2NCwiYXVkIjoiW29iamVjdCBPYmplY3RdIn0.Wa44sKFoSFbmljSm-OWupJjVHV3xgZfRR3fm0-lKJeQ"
+        }
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "email": "The given email is invalid."
+        }
+    ],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-POST-auth-sign-in" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-auth-sign-in"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-auth-sign-in"></code></pre>
+</span>
+<span id="execution-error-POST-auth-sign-in" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-auth-sign-in"></code></pre>
+</span>
+
+<form id="form-POST-auth-sign-in"
+      data-method="POST"
+      data-path="/auth/sign-in"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-auth-sign-in', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/auth/sign-in</code></b>
+</p>
+
+
+<p>
+    <label id="auth-POST-auth-sign-in" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="POST-auth-sign-in"
+                                                               data-component="header"></label>
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="email"
+               data-endpoint="POST-auth-sign-in"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 3 max: 30</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="password"
+               data-endpoint="POST-auth-sign-in"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 7 max: 40</p>
+            </p>
+        
+
+
+</form>
+
+
+
+    
+
+    <h1 id="General">General</h1>
+    <p>
+        
+    </p>
+
+    
+        
+<h2 id="General-GET-general">Dropdowns listing API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-GET-general">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:3000/general"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/general"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-general">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "statuses": {
+            "total_records": 2,
+            "records": [
+                {
+                    "id": "629df2222f917e7ddaea6ef6",
+                    "title": "active"
+                }
+            ]
+        },
+        "countries": {
+            "total_records": 2,
+            "records": [
+                {
+                    "id": "629e29b22f917e7ddaea6f0b",
+                    "title": "Pakistan"
+                }
+            ]
+        },
+        "genres": {
+            "total_records": 3,
+            "records": [
+                {
+                    "id": "629e29f52f917e7ddaea6f0f",
+                    "title": "action"
+                }
+            ]
+        }
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (401):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 401,
+    "message": "Unauthenticated user to access this route",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (403):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 403,
+    "message": "A token is required for authentication",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-general" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-general"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-general"></code></pre>
+</span>
+<span id="execution-error-GET-general" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-general"></code></pre>
+</span>
+
+<form id="form-GET-general"
+      data-method="GET"
+      data-path="/general"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-general', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/general</code></b>
+</p>
+
+
+<p>
+    <label id="auth-GET-general" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="GET-general"
+                                                               data-component="header"></label>
+</p>
+
+
+
+
+</form>
+
+
+
+    
+
+    <h1 id="Films">Films</h1>
+    <p>
+        
+    </p>
+
+    
+        
+<h2 id="Films-GET-films">Films listing API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-GET-films">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:3000/filmslimit=10&amp;from=0"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/films"
+);
+
+const params = {{
+    "limit": "10",
+    "from": "0",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-films">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "total_records": 6,
+        "records": [
+            {
+                "id": "629e7a82c68fd693edbc9d87",
+                "title": "Movie F",
+                "slug": "movie-f",
+                "rating": 5,
+                "price": "$ 50",
+                "cover_image": "http://localhost:3000/1654553218911.jpg",
+                "released_date": "2021-01-01",
+                "created_at": "2022-06-06T22:06:58.952Z"
+            }
+        ]
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (401):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 401,
+    "message": "Unauthenticated user to access this route",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (403):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 403,
+    "message": "A token is required for authentication",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {
+        "total_records": 1,
+        "films": []
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "limit": "The limit field is required."
+        }
+    ],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {
+        "total_records": 0,
+        "films": []
+    }
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-films" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-films"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-films"></code></pre>
+</span>
+<span id="execution-error-GET-films" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-films"></code></pre>
+</span>
+
+<form id="form-GET-films"
+      data-method="GET"
+      data-path="/films"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-films', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/films</code></b>
+</p>
+
+
+<p>
+    <label id="auth-GET-films" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="GET-films"
+                                                               data-component="header"></label>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+
+
+<p>
+<b><code>limit</code></b>&nbsp;&nbsp;<small>integer</small>
+
+
+
+
+    
+        <input type="number"
+               name="limit"
+               data-endpoint="GET-films"
+               data-component="query" required hidden>
+    
+
+<br>
+<p>gt: 0 min: 1</p>
+</p>
+
+
+<p>
+<b><code>from</code></b>&nbsp;&nbsp;<small>integer</small>
+
+
+
+
+    
+        <input type="number"
+               name="from"
+               data-endpoint="GET-films"
+               data-component="query" required hidden>
+    
+
+<br>
+<p>min: 1</p>
+</p>
+
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Films-POST-films-create">Create film API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-POST-films-create">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:3000/films/create"  \
+    --header "Content-Type: multipart/form-data" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --form "title=Movie A" \
+    --form "description=123456789" \
+    --form "released_date=2021-01-01" \
+    --form "rating=5" \
+    --form "price=50.00" \
+    --form "country_id=629e29b22f917e7ddaea6f0b" \
+    --form "genres_id[]=629e2b702f917e7ddaea6f1b" \
+    --form "cover_photo=@C:\Users\SHAHZA~1\AppData\Local\Temp\tmp-23948-gU7JrzujWYbc"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/films/create"
+);
+
+const headers = {
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+const body = new FormData();
+body.append('title', 'Movie A');
+body.append('description', '123456789');
+body.append('released_date', '2021-01-01');
+body.append('rating', '5');
+body.append('price', '50.00');
+body.append('country_id', '629e29b22f917e7ddaea6f0b');
+body.append('genres_id[]', '629e2b702f917e7ddaea6f1b');
+body.append('cover_photo', document.querySelector('input[name="cover_photo"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-films-create">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "id": "629e73b8a0d8d4cec16c50f8",
+        "title": "Movie D",
+        "slug": "movie-d",
+        "rating": "5",
+        "price": "$50.00",
+        "cover_image": "uploads/1654551480925.jpg",
+        "released_date": "2021-01-01",
+        "created_at": "2022-06-06T21:38:01.000Z"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (401):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 401,
+    "message": "Unauthenticated user to access this route",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (403):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 403,
+    "message": "A token is required for authentication",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {
+        "id": "",
+        "title": "Movie D",
+        "slug": "",
+        "rating": "5",
+        "price": "$50.00",
+        "cover_image": "uploads/1654551480925.jpg",
+        "released_date": "2021-01-01",
+        "created_at": ""
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "title": "The title field is required."
+        }
+    ],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {
+        "id": "",
+        "title": "Movie D",
+        "slug": "",
+        "rating": "5",
+        "price": "$50.00",
+        "cover_image": "uploads/1654551480925.jpg",
+        "released_date": "2021-01-01",
+        "created_at": ""
+    }
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-POST-films-create" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-films-create"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-films-create"></code></pre>
+</span>
+<span id="execution-error-POST-films-create" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-films-create"></code></pre>
+</span>
+
+<form id="form-POST-films-create"
+      data-method="POST"
+      data-path="/films/create"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;multipart/form-data&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-films-create', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/films/create</code></b>
+</p>
+
+
+<p>
+    <label id="auth-POST-films-create" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="POST-films-create"
+                                                               data-component="header"></label>
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>title</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="title"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 7 max: 50</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="description"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 20 max: 5000</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>released_date</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="released_date"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>format: yyyy-mm-dd</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>rating</code></b>&nbsp;&nbsp;<small>number</small>
+
+
+
+
+    
+        <input type="number"
+               name="rating"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 1 max: 1</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>price</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="price"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 1 max: 12</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>country_id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="country_id"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 24 max: 24</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>genres_id[]</code></b>&nbsp;&nbsp;<small>array</small>
+
+
+
+
+    
+        <input type="text"
+               name="genres_id.0"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 24 max: 24</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>cover_photo</code></b>&nbsp;&nbsp;<small>file</small>
+
+
+
+
+    
+        <input type="file"
+               name="cover_photo"
+               data-endpoint="POST-films-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>max<em>size: 3mb allowed</em>types: jpeg, jpg, png</p>
+            </p>
+        
+
+
+</form>
+
+
+
+    
+        
+<h2 id="Films-GET-films-details">Film details API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-GET-films-details">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request GET \
+    --get "http://localhost:3000/films/detailsslug=movie-a"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}"
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/films/details"
+);
+
+const params = {{
+    "slug": "movie-a",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
+
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-GET-films-details">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "id": "629e6b76b518799aa88a05f1",
+        "title": "Movie A",
+        "slug": "movie-a",
+        "description": "<h2>Where does it come from?</h2>\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>",
+        "rating": 5,
+        "price": "$ 50",
+        "cover_image": "http://localhost:3000/1654549366390.jpg",
+        "released_date": "2021-01-01",
+        "country": {
+            "id": "629e29b22f917e7ddaea6f0b",
+            "title": "Pakistan"
+        },
+        "genres": [
+            {
+                "id": "629e29f52f917e7ddaea6f0f",
+                "title": "action"
+            },
+            {
+                "id": "629e2b432f917e7ddaea6f1a",
+                "title": "animation"
+            }
+        ],
+        "created_at": "2022-06-06T21:02:46.479Z"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (401):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 401,
+    "message": "Unauthenticated user to access this route",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (403):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 403,
+    "message": "A token is required for authentication",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "slug": "The slug field is required."
+        }
+    ],
+    "data": {}
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {}
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-GET-films-details" hidden>
+    <blockquote>Received response<span id="execution-response-status-GET-films-details"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-GET-films-details"></code></pre>
+</span>
+<span id="execution-error-GET-films-details" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GET-films-details"></code></pre>
+</span>
+
+<form id="form-GET-films-details"
+      data-method="GET"
+      data-path="/films/details"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GET-films-details', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-green">GET</small>
+
+
+    <b><code>/films/details</code></b>
+</p>
+
+
+<p>
+    <label id="auth-GET-films-details" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="GET-films-details"
+                                                               data-component="header"></label>
+</p>
+
+
+
+<h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+
+
+<p>
+<b><code>slug</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="slug"
+               data-endpoint="GET-films-details"
+               data-component="query" required hidden>
+    
+
+<br>
+<p>min: 1</p>
+</p>
+
+
+
+</form>
+
+
+
+    
+
+    <h1 id="Film-Comments">Film Comments</h1>
+    <p>
+        
+    </p>
+
+    
+        
+<h2 id="Film-Comments-POST-films-comments-create">Create film comment API</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+
+</p>
+
+
+
+<span id="example-requests-POST-films-comments-create">
+<blockquote>Example request:</blockquote>
+
+
+
+<pre><code class="bash language-bash">curl --request POST \
+    "http://localhost:3000/films/comments/create"  \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
+    --data '{
+    "film_id": "629e7a82c68fd693edbc9d87",
+    "comment": "Hi, this is a first comment"
+}'
+</code></pre>
+
+
+
+<pre><code class="javascript language-javascript">const url = new URL(
+    "http://localhost:3000/films/comments/create"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+};
+
+const body = {
+    "film_id": "629e7a82c68fd693edbc9d87",
+    "comment": "Hi, this is a first comment"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(body),
+})
+.then(response =&gt; response.json())
+.then(json =&gt; console.log(json));
+</code></pre>
+
+
+</span>
+
+<span id="example-responses-POST-films-comments-create">
+
+
+<blockquote>Example response (200):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": true,
+    "status_code": 200,
+    "message": "Success",
+    "error_msgs": [],
+    "data": {
+        "id": "629df2222f917e7ddaea6ef6",
+        "comment": "Hello",
+        "created_at": "2022-06-06T22:06:58.952Z"
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (404):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 200,
+    "message": "Not found!",
+    "error_msgs": [],
+    "data": {
+        "id": "",
+        "comment": "Hello",
+        "created_at": ""
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (422):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 422,
+    "message": "Internal server error!",
+    "error_msgs": [
+        {
+            "comment": "The comment field is required."
+        }
+    ],
+    "data": {
+        "id": "",
+        "comment": "Hello",
+        "created_at": ""
+    }
+}</code>
+ </pre>
+
+<blockquote>Example response (500):</blockquote>
+
+
+
+<pre>
+ 
+<!-- If response is a JSON string, prettify it. Otherwise, just print it -->
+<code class="language-json">{
+    "response": false,
+    "status_code": 500,
+    "message": "Internal server error!",
+    "error_msgs": [],
+    "data": {
+        "id": "",
+        "comment": "Hello",
+        "created_at": ""
+    }
+}</code>
+ </pre>
+
+
+</span>
+<span id="execution-results-POST-films-comments-create" hidden>
+    <blockquote>Received response<span id="execution-response-status-POST-films-comments-create"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POST-films-comments-create"></code></pre>
+</span>
+<span id="execution-error-POST-films-comments-create" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POST-films-comments-create"></code></pre>
+</span>
+
+<form id="form-POST-films-comments-create"
+      data-method="POST"
+      data-path="/films/comments/create"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{&#34;Content-Type&#34;:&#34;application/json&#34;,&#34;Accept&#34;:&#34;application/json&#34;,&#34;Authorization&#34;:&#34;Bearer {YOUR_AUTH_KEY}&#34;}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POST-films-comments-create', this);">
+<h3>
+    Request&nbsp;
+    
+</h3>
+
+<p>
+    <small class="badge badge-black">POST</small>
+
+
+    <b><code>/films/comments/create</code></b>
+</p>
+
+
+<p>
+    <label id="auth-POST-films-comments-create" hidden>Authorization header:
+        <b><code>Bearer </code></b><input type="text"
+                                                               name="Authorization"
+                                                               data-prefix="Bearer "
+                                                               data-endpoint="POST-films-comments-create"
+                                                               data-component="header"></label>
+</p>
+
+
+
+
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+
+    
+    
+            <p>
+                <b><code>film_id</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="film_id"
+               data-endpoint="POST-films-comments-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 23 max: 23</p>
+            </p>
+        
+
+    
+    
+            <p>
+                <b><code>comment</code></b>&nbsp;&nbsp;<small>string</small>
+
+
+
+
+    
+        <input type="text"
+               name="comment"
+               data-endpoint="POST-films-comments-create"
+               data-component="body" required hidden>
+    
+
+<br>
+<p>min: 1 max: 2200</p>
+            </p>
+        
+
+
+</form>
+
+
+
+    
+
+
+        
+    </div>
+    <div class="dark-box">
+        
+            <div class="lang-selector">
+                
+                    <a href="#" data-language-name="bash">bash</a>
+                
+                    <a href="#" data-language-name="javascript">javascript</a>
+                
+            </div>
+        
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var languages = ["bash","javascript"];
+        setupLanguages(languages);
+    });
+</script>
+
+</body>
+</html>

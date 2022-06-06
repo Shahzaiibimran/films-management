@@ -1,0 +1,502 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "localhost:3000"
+        }
+    ],
+    "info": {
+        "name": "Films Management Documentation",
+        "description": "",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_postman_id": "51a8d73f-89ff-4569-94b2-54e9b73b68c5"
+    },
+    "item": [
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Sign up API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "auth/sign-up",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/auth/sign-up"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"first_name\": \"Shahzaib\",\n    \"last_name\": \"Imran\",\n    \"email\": \"shahzaiibimran@gmail.com\",\n    \"password\": \"123456789\",\n    \"confirm_password\": \"123456789\"\n}"
+                        },
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"firstName\": \"Shahzaib\",\n        \"lastName\": \"Imran\",\n        \"email\": \"shahzaiibimran@gmail.com\"\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"firstName\": \"Shahzaib\",\n        \"lastName\": \"Imran\",\n        \"email\": \"shahzaiibimran@gmail.com\"\n    }\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"first_name\": \"The first name field is required.\"\n        }\n    ],\n    \"data\": {\n        \"firstName\": \"Shahzaib\",\n        \"lastName\": \"Imran\",\n        \"email\": \"shahzaiibimran@gmail.com\"\n    }\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"firstName\": \"Shahzaib\",\n        \"lastName\": \"Imran\",\n        \"email\": \"shahzaiibimran@gmail.com\"\n    }\n}",
+                            "name": "500"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sign in API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "auth/sign-in",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/auth/sign-in"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"shahzaiibimran@gmail.com\",\n    \"password\": \"123456789\"\n}"
+                        },
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"response\": true,\n        \"status_code\": 200,\n        \"message\": \"Success\",\n        \"error_msgs\": [],\n        \"data\": {\n            \"id\": \"629e0c147317166748842736\",\n            \"first_name\": \"Shahzaib\",\n            \"last_name\": \"Imran\",\n            \"email\": \"shahzaiibimran@gmail.com\",\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI5ZTBjMTQ3MzE3MTY2NzQ4ODQyNzM2IiwiZmlyc3RfbmFtZSI6IlNoYWh6YWliIiwibGFzdF9uYW1lIjoiSW1yYW4iLCJlbWFpbCI6InNoYWh6YWlpYmltcmFuQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTQ1MjY4NjQsImV4cCI6MTY1NDYxMzI2NCwiYXVkIjoiW29iamVjdCBPYmplY3RdIn0.Wa44sKFoSFbmljSm-OWupJjVHV3xgZfRR3fm0-lKJeQ\"\n        }\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"email\": \"The given email is invalid.\"\n        }\n    ],\n    \"data\": {}\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "500"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "General",
+            "item": [
+                {
+                    "name": "Dropdowns listing API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "general",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/general"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"statuses\": {\n            \"total_records\": 2,\n            \"records\": [\n                {\n                    \"id\": \"629df2222f917e7ddaea6ef6\",\n                    \"title\": \"active\"\n                }\n            ]\n        },\n        \"countries\": {\n            \"total_records\": 2,\n            \"records\": [\n                {\n                    \"id\": \"629e29b22f917e7ddaea6f0b\",\n                    \"title\": \"Pakistan\"\n                }\n            ]\n        },\n        \"genres\": {\n            \"total_records\": 3,\n            \"records\": [\n                {\n                    \"id\": \"629e29f52f917e7ddaea6f0f\",\n                    \"title\": \"action\"\n                }\n            ]\n        }\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 401,\n    \"message\": \"Unauthenticated user to access this route\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "401"
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 403,\n    \"message\": \"A token is required for authentication\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "403"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Films",
+            "item": [
+                {
+                    "name": "Films listing API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "films",
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "10",
+                                    "description": "gt: 0 min: 1",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "from",
+                                    "value": "0",
+                                    "description": "min: 1",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http://{{baseUrl}}/films?limit=10&from=0"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"total_records\": 6,\n        \"records\": [\n            {\n                \"id\": \"629e7a82c68fd693edbc9d87\",\n                \"title\": \"Movie F\",\n                \"slug\": \"movie-f\",\n                \"rating\": 5,\n                \"price\": \"$ 50\",\n                \"cover_image\": \"http://localhost:3000/1654553218911.jpg\",\n                \"released_date\": \"2021-01-01\",\n                \"created_at\": \"2022-06-06T22:06:58.952Z\"\n            }\n        ]\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 401,\n    \"message\": \"Unauthenticated user to access this route\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "401"
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 403,\n    \"message\": \"A token is required for authentication\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "403"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"total_records\": 1,\n        \"films\": []\n    }\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"limit\": \"The limit field is required.\"\n        }\n    ],\n    \"data\": {}\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"total_records\": 0,\n        \"films\": []\n    }\n}",
+                            "name": "500"
+                        }
+                    ]
+                },
+                {
+                    "name": "Create film API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "films/create",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/films/create"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Movie A",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "123456789",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "released_date",
+                                    "value": "2021-01-01",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "rating",
+                                    "value": 5,
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "price",
+                                    "value": "50.00",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "country_id",
+                                    "value": "629e29b22f917e7ddaea6f0b",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "genres_id[]",
+                                    "value": "629e2b702f917e7ddaea6f1b",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cover_photo",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"629e73b8a0d8d4cec16c50f8\",\n        \"title\": \"Movie D\",\n        \"slug\": \"movie-d\",\n        \"rating\": \"5\",\n        \"price\": \"$50.00\",\n        \"cover_image\": \"uploads/1654551480925.jpg\",\n        \"released_date\": \"2021-01-01\",\n        \"created_at\": \"2022-06-06T21:38:01.000Z\"\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 401,\n    \"message\": \"Unauthenticated user to access this route\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "401"
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 403,\n    \"message\": \"A token is required for authentication\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "403"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"\",\n        \"title\": \"Movie D\",\n        \"slug\": \"\",\n        \"rating\": \"5\",\n        \"price\": \"$50.00\",\n        \"cover_image\": \"uploads/1654551480925.jpg\",\n        \"released_date\": \"2021-01-01\",\n        \"created_at\": \"\"\n    }\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"title\": \"The title field is required.\"\n        }\n    ],\n    \"data\": {}\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"\",\n        \"title\": \"Movie D\",\n        \"slug\": \"\",\n        \"rating\": \"5\",\n        \"price\": \"$50.00\",\n        \"cover_image\": \"uploads/1654551480925.jpg\",\n        \"released_date\": \"2021-01-01\",\n        \"created_at\": \"\"\n    }\n}",
+                            "name": "500"
+                        }
+                    ]
+                },
+                {
+                    "name": "Film details API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "films/details",
+                            "query": [
+                                {
+                                    "key": "slug",
+                                    "value": "movie-a",
+                                    "description": "min: 1",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http://{{baseUrl}}/films/details?slug=movie-a"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"629e6b76b518799aa88a05f1\",\n        \"title\": \"Movie A\",\n        \"slug\": \"movie-a\",\n        \"description\": \"<h2>Where does it come from?</h2>\\n<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \\\"de Finibus Bonorum et Malorum\\\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \\\"Lorem ipsum dolor sit amet..\\\", comes from a line in section 1.10.32.</p><p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \\\"de Finibus Bonorum et Malorum\\\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>\",\n        \"rating\": 5,\n        \"price\": \"$ 50\",\n        \"cover_image\": \"http://localhost:3000/1654549366390.jpg\",\n        \"released_date\": \"2021-01-01\",\n        \"country\": {\n            \"id\": \"629e29b22f917e7ddaea6f0b\",\n            \"title\": \"Pakistan\"\n        },\n        \"genres\": [\n            {\n                \"id\": \"629e29f52f917e7ddaea6f0f\",\n                \"title\": \"action\"\n            },\n            {\n                \"id\": \"629e2b432f917e7ddaea6f1a\",\n                \"title\": \"animation\"\n            }\n        ],\n        \"created_at\": \"2022-06-06T21:02:46.479Z\"\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 401,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 401,\n    \"message\": \"Unauthenticated user to access this route\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "401"
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 403,\n    \"message\": \"A token is required for authentication\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "403"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"slug\": \"The slug field is required.\"\n        }\n    ],\n    \"data\": {}\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {}\n}",
+                            "name": "500"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Film Comments",
+            "item": [
+                {
+                    "name": "Create film comment API",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "films/comments/create",
+                            "query": [],
+                            "raw": "http://{{baseUrl}}/films/comments/create"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"film_id\": \"629e7a82c68fd693edbc9d87\",\n    \"comment\": \"Hi, this is a first comment\"\n}"
+                        },
+                        "description": null
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n    \"response\": true,\n    \"status_code\": 200,\n    \"message\": \"Success\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"629df2222f917e7ddaea6ef6\",\n        \"comment\": \"Hello\",\n        \"created_at\": \"2022-06-06T22:06:58.952Z\"\n    }\n}",
+                            "name": "200"
+                        },
+                        {
+                            "header": [],
+                            "code": 404,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 200,\n    \"message\": \"Not found!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"\",\n        \"comment\": \"Hello\",\n        \"created_at\": \"\"\n    }\n}",
+                            "name": "404"
+                        },
+                        {
+                            "header": [],
+                            "code": 422,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 422,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [\n        {\n            \"comment\": \"The comment field is required.\"\n        }\n    ],\n    \"data\": {\n        \"id\": \"\",\n        \"comment\": \"Hello\",\n        \"created_at\": \"\"\n    }\n}",
+                            "name": "422"
+                        },
+                        {
+                            "header": [],
+                            "code": 500,
+                            "body": "{\n    \"response\": false,\n    \"status_code\": 500,\n    \"message\": \"Internal server error!\",\n    \"error_msgs\": [],\n    \"data\": {\n        \"id\": \"\",\n        \"comment\": \"Hello\",\n        \"created_at\": \"\"\n    }\n}",
+                            "name": "500"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer"
+    }
+}
